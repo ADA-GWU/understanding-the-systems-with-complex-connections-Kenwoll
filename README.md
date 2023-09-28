@@ -100,3 +100,58 @@ client.close()
 ```
 
 Finally, after the loop exits, the client socket is closed to release any resources.
+
+## **server.py explanation**
+
+### **1. Importing Required Modules**
+ 
+```python
+import socket 
+import sys
+```
+
+The code begins by importing the necessary Python modules: socket for socket programming and sys for handling command-line arguments.
+
+### **2. Command-Line Argument Handling**
+
+```python
+if len(sys.argv) != 2:
+    print("Usage: python server.py <server number>. For further information check readme file")
+    sys.exit(1)
+```
+
+The code checks if exactly one command-line argument (the server number) has been provided. If not, it displays usage instructions and exits the program with an error code
+
+### **3. Parsing and Validating the Server Number**
+
+```python
+try:
+    serv_num = int(sys.argv[1])
+except ValueError:
+    print("Invalid argument. Please provide an integer.")
+    sys.exit(1)
+```
+
+If the conversion of command-line argument to integer (serv_num) fails due to a non-integer input, it displays an error message and exits.
+
+### **4. Server IP and Port Configuration**
+
+```python
+ip = "127.0.0.1"
+port = 9000 + serv_num
+```
+
+The server's IP address is set to '127.0.0.1', which is the localhost address. The port number is determined by adding the serv_num to a base port of 9000. This allows multiple server instances to run on different ports.
+
+### **5. Creating a Server Socket**
+
+```python
+serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+serv.bind((ip, port))
+serv.listen(5)
+print(f"Server is listening on {ip}:{port}")
+```
+
+A socket object serv is created with the AF_INET address family (IPv4) and SOCK_STREAM socket type (TCP). The server socket is bound to the specified IP address and port number, and it listens for incoming connections with a maximum queue size of 5. A message is printed to indicate that the server is listening.
+
+
