@@ -155,3 +155,24 @@ print(f"Server is listening on {ip}:{port}")
 A socket object serv is created with the AF_INET address family (IPv4) and SOCK_STREAM socket type (TCP). The server socket is bound to the specified IP address and port number, and it listens for incoming connections with a maximum queue size of 5. A message is printed to indicate that the server is listening.
 
 
+### **6. Accepting Client Connections**
+
+```python
+while True:
+    client_sock, client_addr = serv.accept()
+    print(f"Accepted connection from {client_addr}")
+```
+
+The server enters a loop and waits for incoming client connections using the accept() method. When a client connects, the address is printed to indicate the accepted connection.
+
+### **7. Receiving Data from Clients**
+
+```python
+ try:
+    data = client_sock.recv(1024).decode('utf-8')
+except socket.error as e:
+    if e.errno == 10038:
+        print("The client socket is closed")
+```
+
+The server attempts to receive data from the client. It receives up to 1024 bytes of data and decodes it as UTF-8. It also includes error handling to check if the client socket has been closed.
