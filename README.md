@@ -1,7 +1,75 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Bp585G7b)
 
 # **Documentation for the Socket Client Code**
-This document provides an explanation of the Python codes that implements a socket client and server seperately. The client connects to a server and sends a number for calculation. The server then performs a calculation on the number and sends the result back to the client.
+This document provides an explanation of the Python codes that implements a socket client and server seperately. The client connects to a server and sends a number for calculation. The server then performs a calculation on the number and sends the result back to the client. Additionally instructions on how to setup and run repository is also provided.
+
+<br>
+
+
+## **Repository Setup and Execution Instructions**
+
+Below are the setup and execution instructions for the socket client and server code provided in the repository.
+
+### **Dependencies**
+
+<p>1. Python:  This repository is written in Python 3. You can download latest Python from the official website: <a href="https://www.python.org/downloads/">Download</a></p>
+
+### **Repository setup**
+
+<p>1. Clone the Repository: Open a terminal or command prompt and clone the repository to your local machine using the following command:</p>
+
+```bash
+git clone https://github.com/ADA-GWU/understanding-the-systems-with-complex-connections-Kenwoll.git
+```
+
+<p>2. Clone the Repository</p>
+
+```bash
+cd <repository-directory>
+```
+Replace <repository-directory> with the name of the directory where the repository was cloned.
+
+<p>3. The directory should contain two Python scripts: client.py and server.py. Make sure both files are present.</p>
+
+### **Running the server**
+<p>1. Open a new terminal or command prompt. Make sure that you are in correct directory.</p>
+
+<p>2. Run the server script with a server number as a command-line argument. For example, to start the server on port 9001, run the following command: <p>
+
+```bash
+python3 server.py 1
+```
+
+<p>3. Repeat steps 1-2 with different command line arguments such as 2 and 3. Make sure that you open a new terminal window each time and numbers only restricted to 1, 2 and 3.</p>
+
+```bash
+python3 server.py 2
+```
+```bash
+python3 server.py 3
+```
+
+<p>You should have 3 server instances listening on ports 9001, 9002 and 9003 respectively.</p>
+
+### **Running the client**
+<p>1. Open a seperate terminal or command prompt. Make sure that you are in correct directory.</p>
+
+<p>2. Run the client script: <p>
+
+```bash
+python3 client.py
+```
+
+<p>3. The client will prompt you to enter a number to calculate. You can enter a number, and the client will send it to the server for processing.</p>
+
+<p>To terminate the client, simply type "exit" and press Enter.</p>
+
+### **Additional information**
+Make sure that the server is running before you start the client. If the server is not running or if you specify an incorrect server number, the client will not be able to connect.
+
+<br>
+<br>
+
 
 ## **client.py explanation**
 
@@ -101,6 +169,9 @@ client.close()
 
 Finally, after the loop exits, the client socket is closed to release any resources.
 
+<br>
+<br>
+
 ## **server.py explanation**
 
 ### **1. Importing Required Modules**
@@ -120,7 +191,7 @@ if len(sys.argv) != 2:
     sys.exit(1)
 ```
 
-The code checks if exactly one command-line argument (the server number) has been provided. If not, it displays usage instructions and exits the program with an error code
+The code checks if exactly one command-line argument (the server number) has been provided. If not, it displays usage instructions and exits the program with an error code.
 
 ### **3. Parsing and Validating the Server Number**
 
@@ -176,3 +247,29 @@ except socket.error as e:
 ```
 
 The server attempts to receive data from the client. It receives up to 1024 bytes of data and decodes it as UTF-8. It also includes error handling to check if the client socket has been closed.
+
+### **8.  Processing and Responding to Data**
+
+```python
+if not data:
+        break
+        
+    print(f"Received from client: {data}")
+        
+    try:
+        response = str(int(data) * 2)
+    except ValueError:
+        response = "Received data is not a valid integer"
+        
+    client_sock.send(response.encode('utf-8'))
+```
+
+ When server gets the data it doubles the received integer. If the data is not a valid integer, an error message is generated. The server then sends the response back to the client.
+
+### **9. Closing the Server Socket**
+
+```python
+serv.close()
+```
+
+After the loop exits, the server socket is closed to release any resources.
