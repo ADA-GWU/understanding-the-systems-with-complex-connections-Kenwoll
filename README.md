@@ -25,9 +25,9 @@ git clone https://github.com/ADA-GWU/understanding-the-systems-with-complex-conn
 <p>2. Clone the Repository</p>
 
 ```bash
-cd <repository-directory>
+cd repository-directory
 ```
-Replace <repository-directory> with the name of the directory where the repository was cloned.
+Replace "repository-directory" with the name of the directory where the repository was cloned.
 
 <p>3. The directory should contain two Python scripts: client.py and server.py. Make sure both files are present.</p>
 
